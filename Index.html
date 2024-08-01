@@ -3,12 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzles</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Puzzle Game</title>
     <script src="in.js"></script>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="ST" onclick="window.location.href='Normal.html';"></div>
-    
+    <h1>Puzzle Game</h1>
+    <div class="difficulty-buttons">
+        <button id="easyBtn">Easy</button>
+        <button id="normalBtn">Normal</button>
+        <button id="hardBtn">Hard</button>
+    </div>
+    <button id="startBtn">Start Game</button>
+    <div id="gameContainer">
+        <div id="board"></div>
+        <br>
+        <div id="pieces"></div>
+    </div>
+    <br><br><br><br>
+    <button id="changeBtn">Change Image</button>
+    <h2>Turns: <span id="turns">0</span></h2>
+
 </body>
 </html>

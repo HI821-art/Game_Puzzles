@@ -6,27 +6,85 @@ var currTile;
 var otherTile;
 var turns = 0;
 
-var imageUrls = ["./Images/Normal/Images-1/", "./Images/Normal/Images-2/", "./Images/Normal/Images-2/"];
+var normalImageUrls = ["./Images/Normal/Images-1/", "./Images/Normal/Images-2/", "./Images/Normal/Images-3/"];
+var easyImageUrls = ["./Images/Easy/Images-1/", "./Images/Easy/Images-2/", "./Images/Easy/Images-3/"];
+var hardImageUrls = ["./Images/Hard/Images-1/", "./Images/Hard/Images-2/", "./Images/Hard/Images-3/"];
 var currentImageUrlIndex = 0;
+var imageUrls = normalImageUrls;
 
 window.onload = function() {
-    initializeBoard();
-    shufflePieces();
-    createPieces();
+    document.getElementById("easyBtn").addEventListener("click", function() {
+        rows = 3;
+        columns = 3;
+        imageUrls = easyImageUrls;
+        setBoardSize("easy");
+    });
 
-    function changePuzzleImage() {
-        clearPieces();
-        shufflePieces();
+    document.getElementById("normalBtn").addEventListener("click", function() {
+        rows = 5;
+        columns = 5;
+        imageUrls = normalImageUrls;
+        setBoardSize("normal");
+    });
+
+    document.getElementById("hardBtn").addEventListener("click", function() {
+        rows = 8;
+        columns = 8;
+        imageUrls = hardImageUrls;
+        setBoardSize("hard");
+    });
+
+    document.getElementById("startBtn").addEventListener("click", function() {
         initializeBoard();
+        shufflePieces();
         createPieces();
-    }
+    });
 
     document.getElementById("changeBtn").addEventListener("click", function() {
         currentImageUrlIndex = (currentImageUrlIndex + 1) % imageUrls.length;
         changePuzzleImage();
     });
+}
 
+function setBoardSize(level) {
+    let board = document.getElementById("board");
+    let piecesContainer = document.getElementById("pieces");
 
+    let boardSize, pieceSize;
+
+    switch(level) {
+        case "easy":
+            board.style.width = "241px"
+            board.style.height = "245px"
+            piecesContainer.style.width = "402px";
+            piecesContainer.style.height = "160px";
+            break;
+        case "normal":
+            board.style.width = "400px"
+            board.style.height = "400px"
+            piecesContainer.style.width = "1037px;"; 
+            piecesContainer.style.height = "160px";
+            break;
+       case "hard":
+            board.style.width = "639px"
+            board.style.height = "641px"
+            piecesContainer.style.width = "1757px";
+            piecesContainer.style.height = "240px"; 
+            break;
+            }
+
+    board.style.width = boardSize;
+    board.style.height = boardSize;
+
+    for (let tile of piecesContainer.children) {
+        tile.style.width = pieceSize;
+        tile.style.height = pieceSize;
+    }
+
+    for (let tile of board.children) {
+        tile.style.width = pieceSize;
+        tile.style.height = pieceSize;
+    }
 }
 
 function initializeBoard() {
@@ -35,6 +93,7 @@ function initializeBoard() {
         for (let c = 0; c < columns; c++) {
             let tile = document.createElement("img");
             tile.src = "./Images/Normal/Images-1/blank2.jpg";
+     
 
             tile.addEventListener("dragstart", dragStart);
             tile.addEventListener("dragover", dragOver);
@@ -63,9 +122,11 @@ function shufflePieces() {
 }
 
 function createPieces() {
+    clearPieces();
     for (let i = 0; i < pieces.length; i++) {
         let tile = document.createElement("img");
         tile.src = imageUrls[currentImageUrlIndex] + pieces[i] + ".jpg";
+   
 
         tile.addEventListener("dragstart", dragStart);
         tile.addEventListener("dragover", dragOver);
@@ -90,7 +151,13 @@ function clearPieces() {
     while (piecesContainer.firstChild) {
         piecesContainer.removeChild(piecesContainer.firstChild);
     }
+}
 
+function changePuzzleImage() {
+    clearPieces();
+    shufflePieces();
+    initializeBoard();
+    createPieces();
 }
 
 function dragStart() {
@@ -122,34 +189,4 @@ function dragEnd() {
 
     turns += 1;
     document.getElementById("turns").innerText = turns;
-}
-
-function showGameOptions(rows, columns) {
-    // Створюємо поле гри з вказаними рядками та стовпцями
-    clearBoard();
-    clearPieces();
-    createGameBoard(rows, columns);
-}
-
-function createGameBoard(rows, columns) {
-    for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < columns; c++) {
-            let tile = document.createElement("img");
-            tile.src = "./Images/Normal/Images-1/blank2.jpg";
-
-            tile.addEventListener("dragstart", dragStart);
-            tile.addEventListener("dragover", dragOver);
-            tile.addEventListener("dragenter", dragEnter);
-            tile.addEventListener("dragleave", dragLeave);
-            tile.addEventListener("drop", dragDrop);
-            tile.addEventListener("dragend", dragEnd);
-
-            document.getElementById("board").append(tile);
-        }
-    }
-}
-
-function clearGame() {
-    clearBoard();
-    clearPieces();
 }
