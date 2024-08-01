@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle Game</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="game.js"></script>
+</head>
+<body>
+    <h1>Select Puzzle Difficulty</h1>
+    <br>
+    <div class="button-container" id="button-container">
+        <button class="btn buttonLv" onclick="selectImage('easy')">Easy</button>
+        <button class="btn buttonLv" onclick="selectImage('normal')">Normal</button>
+        <button class="btn buttonLv" onclick="selectImage('hard')">Hard</button>
+    </div>
+    
+    <div id="image-selection" style="display: none;">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators" id="carousel-indicators"></ol>
+            <div class="carousel-inner" id="carousel-inner"></div>
+
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <br>
+        <button class="btn btn-primary" onclick="goBack()">Back</button>
+    </div>
+
+    <div id="game-container" style="display: none;">
+        <div id="board"></div>
+        <br>
+        <div id="pieces"></div>
+        <h2>Turns: <span id="turns">0</span></h2>
+        <button class="sec" onclick="reset()"><span>RESTART</span></button>
+    </div>
+    <button class="close-button" onclick="goBack()">✖</button>
+   
+    <div id="win-container" style="display: none;">
+        <h1>Congratulations, You Win!</h1>
+        <button onclick="reset()">Play Again</button>
+        <button onclick="goBack()">Go Back</button>
+    </div>
+</body>
+</html>
